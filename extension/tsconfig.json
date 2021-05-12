@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "ES2020", "WebWorker"],
+    "sourceMap": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true
+  },
+  "include": ["src/*"],
+  "exclude": ["**/*.spec.ts"]
+}

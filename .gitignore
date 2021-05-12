@@ -1,0 +1,4 @@
+.yarn/
+bot/dist/
+extension/public/dist.*
+extension/dist.background.js

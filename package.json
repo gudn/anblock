@@ -1,0 +1,14 @@
+{
+  "name": "anblock",
+  "version": "1.0.0",
+  "description": "A simple site blocker with telegram unlock",
+  "main": "index.js",
+  "repository": "https://github.com/gudn/anblock",
+  "author": "Daniil Novoselov",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "bot",
+    "extension"
+  ]
+}

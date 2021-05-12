@@ -1,0 +1,19 @@
+{
+  "name": "extension",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "author": "Daniil Novoselov",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.0",
+    "@types/chrome": "^0.0.133",
+    "rollup": "^2.41.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.3"
+  },
+  "private": true
+}
