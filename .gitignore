@@ -1,4 +1,5 @@
 .yarn/
 bot/dist/
+bot/.env
 extension/public/dist.*
 extension/dist.background.js

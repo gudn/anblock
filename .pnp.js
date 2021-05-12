@@ -553,6 +553,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.11"],
             ["@types/node", "npm:15.0.2"],
             ["concurrently", "npm:6.1.0"],
+            ["dotenv", "npm:9.0.2"],
             ["express", "npm:4.17.1"],
             ["nodemon", "npm:2.0.7"],
             ["typescript", "patch:typescript@npm%3A4.2.4#builtin<compat/typescript>::version=4.2.4&hash=a45b0e"]
@@ -1059,6 +1060,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["dot-prop", "npm:5.3.0"],
             ["is-obj", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["dotenv", [
+        ["npm:9.0.2", {
+          "packageLocation": "./.yarn/cache/dotenv-npm-9.0.2-fd127dfe81-062a31a2fd.zip/node_modules/dotenv/",
+          "packageDependencies": [
+            ["dotenv", "npm:9.0.2"]
           ],
           "linkType": "HARD",
         }]
