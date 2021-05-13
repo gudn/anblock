@@ -2,11 +2,12 @@
   "name": "AngelBlock",
   "description": "Extension to site blocking",
   "version": "1.0.0",
-  "manifest_version": 3,
+  "manifest_version": 2,
   "background": {
     "service_worker": "dist.background.js"
   },
-  "action": {
+  "browser_action": {
     "default_popup": "public/popup.html"
-  }
+  },
+  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"]
 }

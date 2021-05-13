@@ -102,13 +102,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.133":
-  version: 0.0.133
-  resolution: "@types/chrome@npm:0.0.133"
+"@types/chrome@npm:^0.0.139":
+  version: 0.0.139
+  resolution: "@types/chrome@npm:0.0.139"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: f4ea13de2c09514b67af8454dc5cec897e4c8ffaecf894ba4e871f5e3fb6c1c40faffd8ebb059d08e57961f1b218cb4a6dbc1fe44989378a4c6600dde59e8e9b
+  checksum: 2e76ab4e293b0fd5543ccc6e8b745ec08e49a0145cd6b2d1607bbe3d3cf8b3b16a4dbdef6169aa5ad9dd42cb3cdace0998f69c837358d88aa56d9ffe84e19ba7
   languageName: node
   linkType: hard
 
@@ -1055,7 +1055,7 @@ __metadata:
   resolution: "extension@workspace:extension"
   dependencies:
     "@rollup/plugin-typescript": ^8.2.0
-    "@types/chrome": ^0.0.133
+    "@types/chrome": ^0.0.139
     rollup: ^2.41.2
     rollup-plugin-terser: ^7.0.2
     tslib: ^2.2.0

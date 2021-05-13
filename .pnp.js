@@ -190,10 +190,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/chrome", [
-        ["npm:0.0.133", {
-          "packageLocation": "./.yarn/cache/@types-chrome-npm-0.0.133-3ef4d7ec3a-f4ea13de2c.zip/node_modules/@types/chrome/",
+        ["npm:0.0.139", {
+          "packageLocation": "./.yarn/cache/@types-chrome-npm-0.0.139-674afab215-2e76ab4e29.zip/node_modules/@types/chrome/",
           "packageDependencies": [
-            ["@types/chrome", "npm:0.0.133"],
+            ["@types/chrome", "npm:0.0.139"],
             ["@types/filesystem", "npm:0.0.30"],
             ["@types/har-format", "npm:1.2.5"]
           ],
@@ -1312,7 +1312,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["extension", "workspace:extension"],
             ["@rollup/plugin-typescript", "virtual:cde31bdbca92893d2ba5f45c69edd4b0f04d6d0be916866069acedd8121ea6d4a9950b4ea15ca9ca27683c2b0b2191530bd8b59d38013cef503ea8b5bedd6682#npm:8.2.1"],
-            ["@types/chrome", "npm:0.0.133"],
+            ["@types/chrome", "npm:0.0.139"],
             ["rollup", "npm:2.47.0"],
             ["rollup-plugin-terser", "virtual:cde31bdbca92893d2ba5f45c69edd4b0f04d6d0be916866069acedd8121ea6d4a9950b4ea15ca9ca27683c2b0b2191530bd8b59d38013cef503ea8b5bedd6682#npm:7.0.2"],
             ["tslib", "npm:2.2.0"],
