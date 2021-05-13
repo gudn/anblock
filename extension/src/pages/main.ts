@@ -59,7 +59,7 @@ function newItemElement(root: HTMLElement) {
   const input = document.createElement('input')
   const button = document.createElement('button')
   button.innerText = 'Add'
-  input.setAttribute('placeholder', 'https?://youtube.com/*')
+  input.setAttribute('placeholder', 'youtube.com')
   input.addEventListener('keyup', e => {
     if (e.code === 'Enter') {
       e.preventDefault()
