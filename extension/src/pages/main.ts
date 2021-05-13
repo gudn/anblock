@@ -1,7 +1,11 @@
 import { Rule } from '../rule'
 import { storageGet, storageSet } from '../storage'
 
-function createWrapper(childs: HTMLElement[], className: string | null = null) {
+function t(text: string): Node {
+  return document.createTextNode(text)
+}
+
+function createWrapper(childs: Node[], className: string | null = null) {
   const wrapper = document.createElement('div')
   wrapper.className = className ?? ''
   childs.forEach(child => wrapper.appendChild(child))
@@ -86,9 +90,51 @@ function newItemElement(root: HTMLElement) {
 }
 
 function header(root: HTMLElement, username: string) {
+  const angelInputRegex = /^[a-zA-Z0-9_]+$/
+  let lastValidangelInput = ''
   const usernameElem = document.createElement('h4')
   usernameElem.innerText = username
-  root.appendChild(createWrapper([usernameElem], 'header'))
+  const angelInput = document.createElement('input')
+  angelInput.setAttribute('placeholder', "angel's tgname")
+  function validate() {
+    if (angelInput.value === '' || angelInputRegex.test(angelInput.value)) {
+      lastValidangelInput = angelInput.value
+      storageSet('angel', lastValidangelInput)
+    } else {
+      angelInput.value = lastValidangelInput
+    }
+  }
+  angelInput.addEventListener('input', validate)
+  // angelInput.addEventListener('keyup', validate)
+  storageGet('angel').then(value => (angelInput.value = value ?? ''))
+  const rangeInput = document.createElement('input')
+  rangeInput.setAttribute('type', 'range')
+  rangeInput.setAttribute('min', '0')
+  rangeInput.setAttribute('max', '720')
+  rangeInput.setAttribute('step', '5')
+  const span = document.createElement('span')
+  function updateSpan() {
+    const value = parseInt(rangeInput.value)
+    if (value > 0) {
+      span.innerText = `${value} min.`
+    } else {
+      span.innerText = 'Infinity'
+    }
+  }
+  updateSpan()
+  rangeInput.addEventListener('input', updateSpan)
+  const button = document.createElement('button')
+  button.innerText = 'Start'
+  root.appendChild(
+    createWrapper(
+      [
+        createWrapper([t('@'), angelInput, t('|'), usernameElem], 'header-row'),
+        createWrapper([rangeInput, span], 'header-row'),
+        createWrapper([button], 'header-row'),
+      ],
+      'header'
+    )
+  )
 }
 
 export default async function mainPage(

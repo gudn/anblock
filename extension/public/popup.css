@@ -35,9 +35,31 @@ body > div:not(:last-child) {
 
 .header {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.header .header-row:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.header-row {
+  display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+
+.header-row input {
+  flex-grow: 1;
+}
+
+.header-row span {
+  margin-left: 3px;
+}
+
+.header-row button {
+  width: 100%;
 }
 
 .rule {
