@@ -4,15 +4,17 @@ chrome.runtime.onInstalled.addListener(() => {
   console.log('Installed')
 })
 
-chrome.webRequest.onBeforeRequest.addListener(
-  req => {
-    if (req.url === 'https://vk.com/') {
-      return {
-        redirectUrl: `${BACKEND_URL}/redirect`,
-      }
-    }
-    return {}
-  },
-  { urls: ['<all_urls>'], types: ['main_frame'] },
-  ['blocking']
-)
+function listener(request: chrome.webRequest.ResourceRequest) {
+  return {
+    redirectUrl: `${BACKEND_URL}/redirect`,
+  }
+}
+
+function setRules(rules: string[]) {
+  chrome.webRequest.onBeforeRequest.removeListener(listener)
+  chrome.webRequest.onBeforeRequest.addListener(
+    listener,
+    { urls: rules, types: ['main_frame'] },
+    ['blocking']
+  )
+}

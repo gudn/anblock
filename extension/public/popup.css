@@ -14,3 +14,51 @@ input.username {
   width: 290px;
   box-sizing: border-box;
 }
+
+body > div {
+  width: 290px;
+}
+
+body > div:not(:last-child) {
+  padding-bottom: 10px;
+}
+
+.new-item-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.new-item-wrapper > input {
+  flex-grow: 1;
+  margin-right: 5px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.rule {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rule {
+  margin-top: 5px;
+}
+
+.rules > hr:last-child {
+  margin-top: 5px;
+}
+
+.rule > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.rule input[type='checkbox'] {
+  margin-right: 3px;
+}
