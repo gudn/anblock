@@ -13,4 +13,7 @@ async function init() {
   await mainPage(body, init)
 }
 
+chrome.storage.onChanged.addListener(changes => {
+  if (changes['alarmInfo']) init()
+})
 init()

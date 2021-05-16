@@ -189,7 +189,4 @@ export default async function mainPage(
   header(root, username, alarm)
   listRules(root, alarm !== null)
   newItemElement(root)
-  chrome.storage.onChanged.addListener(changes => {
-    if (changes['alarmInfo']) reload()
-  })
 }
