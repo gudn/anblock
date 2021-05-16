@@ -1,11 +1,18 @@
 import { config } from 'dotenv'
 import { Telegraf, Markup } from 'telegraf'
 
-import { getLocks, unlock, unlockAll } from './db'
+import { getLocks, unlock, unlockAll, setUserId } from './db'
 
 config()
 
 export const bot = new Telegraf(process.env.BOT_TOKEN)
+
+bot.use(async (ctx, next) => {
+  if (ctx.message) {
+    await setUserId(ctx.message.from.username, ctx.message.from.id)
+  }
+  await next()
+})
 
 bot.command('unlockall', async ctx => {
   const username = ctx.message.from.username
@@ -60,5 +67,3 @@ bot.action(/.+/, async ctx => {
     )
   }
 })
-
-bot.on('text', ctx => ctx.reply(ctx.message.text))

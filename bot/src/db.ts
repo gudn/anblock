@@ -49,3 +49,12 @@ export async function getLocks(angel: string): Promise<string[]> {
   const keys = await tedis.keys(`${angel}/*`)
   return keys.map(key => key.split('/')[1]).sort()
 }
+
+export async function getUserId(username: string): Promise<number | null> {
+  const value = await tedis.hget('uids', username)
+  return value ? parseInt(value) : null
+}
+
+export async function setUserId(username: string, userId: number) {
+  await tedis.hset('uids', username, userId.toString())
+}
