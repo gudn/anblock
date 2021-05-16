@@ -1,5 +1,6 @@
 import { Rule } from '../rule'
 import { storageGet, storageSet } from '../storage'
+import { BlockAlarm, getInfo as getAlarmInfo } from '../alarm'
 
 function t(text: string): Node {
   return document.createTextNode(text)
@@ -89,11 +90,13 @@ function newItemElement(root: HTMLElement) {
   root.appendChild(createWrapper([input, button], 'new-item-wrapper'))
 }
 
-function header(root: HTMLElement, username: string) {
-  const angelInputRegex = /^[a-zA-Z0-9_]+$/
-  let lastValidangelInput = ''
+function header(root: HTMLElement, username: string, alarm: BlockAlarm | null) {
+  // username element
   const usernameElem = document.createElement('h4')
   usernameElem.innerText = username
+  // angel input
+  const angelInputRegex = /^[a-zA-Z0-9_]+$/
+  let lastValidangelInput = ''
   const angelInput = document.createElement('input')
   angelInput.setAttribute('placeholder', "angel's tgname")
   function validate() {
@@ -104,9 +107,13 @@ function header(root: HTMLElement, username: string) {
       angelInput.value = lastValidangelInput
     }
   }
-  angelInput.addEventListener('input', validate)
-  // angelInput.addEventListener('keyup', validate)
+  if (alarm === null) {
+    angelInput.addEventListener('input', validate)
+  } else {
+    angelInput.setAttribute('disabled', 'disabled')
+  }
   storageGet('angel').then(value => (angelInput.value = value ?? ''))
+  // range input
   const rangeInput = document.createElement('input')
   rangeInput.setAttribute('type', 'range')
   rangeInput.setAttribute('min', '0')
@@ -121,10 +128,34 @@ function header(root: HTMLElement, username: string) {
       span.innerText = 'Infinity'
     }
   }
+  if (alarm === null) {
+    rangeInput.addEventListener('input', updateSpan)
+  } else {
+    rangeInput.setAttribute('disabled', 'disabled')
+    rangeInput.value = alarm.duration.toString()
+  }
   updateSpan()
-  rangeInput.addEventListener('input', updateSpan)
+  // start button
   const button = document.createElement('button')
-  button.innerText = 'Start'
+  if (alarm) {
+    const diff = Date.now() - Date.parse(alarm.startTime)
+    button.innerText = `Stop (left ${
+      alarm.duration - Math.round(diff / 1000 / 60)
+    } min)`
+    button.addEventListener('click', () =>
+      chrome.storage.sync.remove('alarmInfo')
+    )
+  } else {
+    button.innerText = 'Start'
+    button.addEventListener('click', async () => {
+      const info = {
+        startTime: new Date().toISOString(),
+        duration: parseInt(rangeInput.value),
+      }
+      await storageSet('alarmInfo', JSON.stringify(info))
+    })
+  }
+  // mount
   root.appendChild(
     createWrapper(
       [
@@ -145,7 +176,11 @@ export default async function mainPage(
   if (!username) {
     return reload()
   }
-  header(root, username)
+  const alarm = await getAlarmInfo()
+  header(root, username, alarm)
   listRules(root)
   newItemElement(root)
+  chrome.storage.onChanged.addListener(changes => {
+    if (changes['alarmInfo']) reload()
+  })
 }
