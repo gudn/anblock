@@ -13,7 +13,12 @@ function createWrapper(childs: Node[], className: string | null = null) {
   return wrapper
 }
 
-function ruleView(rule: Rule, root: HTMLElement, rules: Rule[]) {
+function ruleView(
+  rule: Rule,
+  root: HTMLElement,
+  rules: Rule[],
+  blockActive: boolean
+) {
   const url = document.createElement('span')
   url.innerText = rule.url
   const checkbox = document.createElement('input')
@@ -24,7 +29,11 @@ function ruleView(rule: Rule, root: HTMLElement, rules: Rule[]) {
   button.addEventListener('click', () =>
     storageSet('rules', JSON.stringify(rules.filter(it => it.url !== rule.url)))
   )
-  checkbox.addEventListener('change', () =>
+  checkbox.addEventListener('change', () => {
+    if (blockActive && !checkbox.checked) {
+      checkbox.checked = true
+      return
+    }
     storageSet(
       'rules',
       JSON.stringify(
@@ -39,17 +48,17 @@ function ruleView(rule: Rule, root: HTMLElement, rules: Rule[]) {
         })
       )
     )
-  )
+  })
   root.appendChild(
     createWrapper([createWrapper([checkbox, url]), button], 'rule')
   )
 }
 
-function listRules(root: HTMLElement) {
+function listRules(root: HTMLElement, blockActive: boolean) {
   const wrapper = createWrapper([], 'rules')
   async function redraw(rules: Rule[]) {
     wrapper.innerHTML = '<hr />'
-    rules.forEach(rule => ruleView(rule, wrapper, rules))
+    rules.forEach(rule => ruleView(rule, wrapper, rules, blockActive))
     wrapper.appendChild(document.createElement('hr'))
   }
   storageGet('rules').then(value => redraw(value ? JSON.parse(value) : []))
@@ -178,7 +187,7 @@ export default async function mainPage(
   }
   const alarm = await getAlarmInfo()
   header(root, username, alarm)
-  listRules(root)
+  listRules(root, alarm !== null)
   newItemElement(root)
   chrome.storage.onChanged.addListener(changes => {
     if (changes['alarmInfo']) reload()
