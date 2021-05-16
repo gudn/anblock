@@ -430,6 +430,7 @@ __metadata:
     dotenv: ^9.0.2
     express: ^4.17.1
     nodemon: ^2.0.7
+    tedis: ^0.1.12
     telegraf: ^4.3.0
     typescript: ^4.2.4
   languageName: unknown
@@ -2782,6 +2783,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"tedis@npm:^0.1.12":
+  version: 0.1.12
+  resolution: "tedis@npm:0.1.12"
+  dependencies:
+    uuid: ^3.3.2
+  checksum: dc75ac2a49275fd1c24db6f0e9e90152bb4abd1032c6643edd68e2f5b2b4a1216ec1818a587b775f32ee2b54cdac939a1b5df6497f5e03339a78ffec81d7e01e
+  languageName: node
+  linkType: hard
+
 "telegraf@npm:^4.3.0":
   version: 4.3.0
   resolution: "telegraf@npm:4.3.0"
@@ -3022,6 +3032,15 @@ fsevents@~2.3.1:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: a457956ebc09efbda05da8bf213ab89140bb9dffa3c42b3315dd8fc3c45d67a1b802741f58b7bba4872113201fc275fc86470289d8bd32b74297b5e5b5980705
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^3.3.2":
+  version: 3.4.0
+  resolution: "uuid@npm:3.4.0"
+  bin:
+    uuid: ./bin/uuid
+  checksum: 1ce3f37e214d6d0dc94a6a9663a0365013ace66bc3fd5b203e6f5d2eeb978aaee1192367222386345d30b4c6a447928c501121aa84c637724bf105ef57284949
   languageName: node
   linkType: hard
 

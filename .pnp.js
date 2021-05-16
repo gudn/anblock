@@ -566,6 +566,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dotenv", "npm:9.0.2"],
             ["express", "npm:4.17.1"],
             ["nodemon", "npm:2.0.7"],
+            ["tedis", "npm:0.1.12"],
             ["telegraf", "npm:4.3.0"],
             ["typescript", "patch:typescript@npm%3A4.2.4#builtin<compat/typescript>::version=4.2.4&hash=a45b0e"]
           ],
@@ -3248,6 +3249,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["tedis", [
+        ["npm:0.1.12", {
+          "packageLocation": "./.yarn/cache/tedis-npm-0.1.12-4c0facd68f-dc75ac2a49.zip/node_modules/tedis/",
+          "packageDependencies": [
+            ["tedis", "npm:0.1.12"],
+            ["uuid", "npm:3.4.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["telegraf", [
         ["npm:4.3.0", {
           "packageLocation": "./.yarn/cache/telegraf-npm-4.3.0-431fe47cf4-e3ff06b155.zip/node_modules/telegraf/",
@@ -3500,6 +3511,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/utils-merge-npm-1.0.1-363bbdfbca-a457956ebc.zip/node_modules/utils-merge/",
           "packageDependencies": [
             ["utils-merge", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["uuid", [
+        ["npm:3.4.0", {
+          "packageLocation": "./.yarn/cache/uuid-npm-3.4.0-4fd8ef88ad-1ce3f37e21.zip/node_modules/uuid/",
+          "packageDependencies": [
+            ["uuid", "npm:3.4.0"]
           ],
           "linkType": "HARD",
         }]

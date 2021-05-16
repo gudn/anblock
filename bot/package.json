@@ -20,6 +20,7 @@
   "dependencies": {
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "tedis": "^0.1.12",
     "telegraf": "^4.3.0"
   }
 }
