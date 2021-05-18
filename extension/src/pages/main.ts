@@ -26,29 +26,33 @@ function ruleView(
   checkbox.checked = !rule.disabled
   const button = document.createElement('button')
   button.innerText = 'Delete'
-  button.addEventListener('click', () =>
-    storageSet('rules', JSON.stringify(rules.filter(it => it.url !== rule.url)))
-  )
-  checkbox.addEventListener('change', () => {
-    if (blockActive && !checkbox.checked) {
-      checkbox.checked = true
-      return
-    }
-    storageSet(
-      'rules',
-      JSON.stringify(
-        rules.map(it => {
-          if (it.url === rule.url) {
-            return {
-              url: rule.url,
-              disabled: !checkbox.checked,
-            }
-          }
-          return it
-        })
+  if (!blockActive) {
+    button.addEventListener('click', () =>
+      storageSet(
+        'rules',
+        JSON.stringify(rules.filter(it => it.url !== rule.url))
       )
     )
-  })
+    checkbox.addEventListener('change', () => {
+      storageSet(
+        'rules',
+        JSON.stringify(
+          rules.map(it => {
+            if (it.url === rule.url) {
+              return {
+                url: rule.url,
+                disabled: !checkbox.checked,
+              }
+            }
+            return it
+          })
+        )
+      )
+    })
+  } else {
+    button.setAttribute('disabled', 'disabled')
+    checkbox.setAttribute('disabled', 'disabled')
+  }
   root.appendChild(
     createWrapper([createWrapper([checkbox, url]), button], 'rule')
   )
