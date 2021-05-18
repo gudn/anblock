@@ -15,5 +15,6 @@
     "<all_urls>",
     "storage",
     "alarms"
-  ]
+  ],
+  "web_accessible_resources": ["public/redirect.html"]
 }

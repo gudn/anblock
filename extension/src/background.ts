@@ -5,7 +5,7 @@ import { storageGet } from './storage'
 
 function listener(request: chrome.webRequest.ResourceRequest) {
   return {
-    redirectUrl: `${BACKEND_URL}/redirect`,
+    redirectUrl: `chrome-extension://${chrome.runtime.id}/public/redirect.html`,
   }
 }
 
