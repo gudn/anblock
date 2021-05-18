@@ -25,6 +25,31 @@ function setRules(rules: Rule[]) {
   }
 }
 
+async function startBlocking(newValue: string) {
+  const info = JSON.parse(newValue) as BlockAlarm
+  const username = await storageGet('username')
+  const angel = await storageGet('angel')
+  if (!username || !angel) return
+  const url = new URL(`${BACKEND_URL}/lock`)
+  url.search = new URLSearchParams({
+    angel,
+    username,
+    ttl: info.duration.toString(),
+  }).toString()
+  try {
+    const resp = await fetch(url.toString(), { method: 'POST' })
+    if (resp.status !== 200) throw `Invalid status code: ${resp.status}`
+  } catch (e) {
+    console.error(e)
+    return
+  }
+  if (info.duration > 0) {
+    chrome.alarms.create('BlockAlarm', {
+      when: Date.parse(info.startTime) + info.duration * 60 * 1000,
+    })
+  }
+}
+
 chrome.storage.onChanged.addListener(async changes => {
   let blockActive: boolean
   if (changes['alarmInfo']) {
@@ -34,12 +59,7 @@ chrome.storage.onChanged.addListener(async changes => {
       await chrome.alarms.clear('BlockAlarm')
     } else {
       blockActive = true
-      const info = JSON.parse(newValue) as BlockAlarm
-      if (info.duration > 0) {
-        chrome.alarms.create('BlockAlarm', {
-          when: Date.parse(info.startTime) + info.duration * 60 * 1000,
-        })
-      }
+      await startBlocking(newValue)
     }
   } else {
     blockActive = (await getInfo()) !== null

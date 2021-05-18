@@ -1,6 +1,7 @@
 import { Rule } from '../rule'
 import { storageGet, storageSet } from '../storage'
 import { BlockAlarm, getInfo as getAlarmInfo } from '../alarm'
+import { BACKEND_URL } from '../config'
 
 function t(text: string): Node {
   return document.createTextNode(text)
@@ -103,6 +104,24 @@ function newItemElement(root: HTMLElement) {
   root.appendChild(createWrapper([input, button], 'new-item-wrapper'))
 }
 
+async function stopBlocking() {
+  const username = await storageGet('username')
+  const angel = await storageGet('angel')
+  if (!username || !angel) return
+  const url = new URL(`${BACKEND_URL}/islocked`)
+  url.search = new URLSearchParams({ username, angel }).toString()
+  try {
+    const resp = await fetch(url.toString())
+    if (resp.status !== 200) return
+    const result = await resp.json()
+    if (result['result']) return
+  } catch (e) {
+    console.error(e)
+    return
+  }
+  await chrome.storage.sync.remove('alarmInfo')
+}
+
 function header(root: HTMLElement, username: string, alarm: BlockAlarm | null) {
   // username element
   const usernameElem = document.createElement('h4')
@@ -155,9 +174,7 @@ function header(root: HTMLElement, username: string, alarm: BlockAlarm | null) {
     button.innerText = `Stop (left ${
       alarm.duration - Math.round(diff / 1000 / 60)
     } min)`
-    button.addEventListener('click', () =>
-      chrome.storage.sync.remove('alarmInfo')
-    )
+    button.addEventListener('click', stopBlocking)
   } else {
     button.innerText = 'Start'
     button.addEventListener('click', async () => {
